@@ -10,7 +10,7 @@ def trans(ss):
     return r
 
 def open_file1(file) :
-    inputFile =('C:/Users/PC/Desktop/호흡데이터/'+file+'-H.txt')
+    inputFile =('D:/edf_data2/'+ file+ '-H.txt')
 
     p = re.compile('[ ㄱ-ㅣ가-힣A-Za-z0-9?]')   #한글,영어 
     f = open(inputFile, mode='r', encoding='euc-kr')
@@ -170,20 +170,20 @@ def open_file2(file):
     return date2,hour2,mi2,sec2,eeg2,eog2,eeg_max,eeg_min,eog_max,eog_min
 
 def open_file3(file) :
-    myFile = open('C:/Users/PC/Desktop/호흡데이터/'+file+'-R.txt','r')
+    myFile = open('D:/edf_data2/'+file+'-M.txt','r')
     lines = myFile.readlines()
     n=len(lines)
 
     text=[]
-    date=[] #날짜`
+    date=[] #날짜
     hour=[] #시간
     mi=[]   #분
     sec=[]  #초
-    Resp=[]
+    emg=[]
  
-    Resp2=[]
-    Resp_max=-10.0
-    Resp_min=10.0
+    emg2=[]
+    emg_max=-10.0
+    emg_min=10.0
     
 
     for line in lines :
@@ -192,22 +192,22 @@ def open_file3(file) :
         hour.append(text[1])
         mi.append(text[2])
         sec.append(text[3])
-        Resp.append(text[4])
+        emg.append(text[4])
         
         
     myFile.close()
     n=len(date)
     
     for i in range(1,n):
-        Resp2.append(Resp[i])
-        if float(Resp[i])>Resp_max :
-            Resp_max=float(Resp[i])
-        if float(Resp[i])<Resp_min :
-            Resp_min=float(Resp[i])
+        emg2.append(emg[i])
+        if float(emg[i])>emg_max :
+            emg_max=float(emg[i])
+        if float(emg[i])<emg_min :
+            emg_min=float(emg[i])
             
-    Resp_max = int(Resp_max)
-    Resp_min = int(Resp_min)
-    return Resp2,Resp_max,Resp_min
+    emg_max = int(emg_max)
+    emg_min = int(emg_min)
+    return emg2,emg_max,emg_min
     
 
 def select(file):
@@ -480,15 +480,15 @@ def open_file5(file):
     n=len(lines)
 
     text=[]
-    Resp=[]
+    emg=[]
    
 
     for line in lines :
         text =line.split()
-        Resp.append(text[0])
+        emg.append(text[0])
         
 
-    return Resp
+    return emg
 
 def draw_time(file,file_name,thick,c,a):
     date,hour,mi,sec,eeg,eog=open_file4(file)
@@ -633,16 +633,16 @@ def draw_time_eog(file,file_name,thick,c,a):
                     print("%d개 생성완료 " % a)
                     
                     
-def draw_time_Resp(file,file_name,thick,c,a) : ## 미완성
+def draw_time_emg(file,file_name,thick,c,a) : ## 미완성
                     
-    Resp=open_file5(file)
+    emg=open_file5(file)
     x=[]
     y=[]
     
      
     for i in range(0,30):
         x.append(i)
-        y.append(Resp[i])
+        y.append(emg[i])
         
        
     y_a=[float(num) for num in y]
@@ -657,50 +657,50 @@ def draw_time_Resp(file,file_name,thick,c,a) : ## 미완성
     if file[0] == 'W' :
                     if not os.path.exists('W'):
                         os.makedirs('W')
-                    if not os.path.exists('W/W_Resp'):
-                        os.makedirs('W/W_Resp')
-                    plt.savefig('W/W_Resp/'+file_name+'.png',format='png')
+                    if not os.path.exists('W/W_emg'):
+                        os.makedirs('W/W_emg')
+                    plt.savefig('W/W_emg/'+file_name+'.png',format='png')
                     plt.clf()
                     print("%d개 생성완료 " % a)
                     
     if file[0] == '1' :
                     if not os.path.exists('1'):
                         os.makedirs('1')
-                    if not os.path.exists('1/1_Resp'):
-                        os.makedirs('1/1_Resp')
-                    plt.savefig('1/1_Resp/'+file_name+'.png',format='png')
+                    if not os.path.exists('1/1_emg'):
+                        os.makedirs('1/1_emg')
+                    plt.savefig('1/1_emg/'+file_name+'.png',format='png')
                     plt.clf()
                     print("%d개 생성완료 " % a)
                     
     if file[0] == '2' :
                    
-                    if not os.path.exists('2/2_Resp'):
-                        os.makedirs('2/2_Resp')
-                    plt.savefig('2/2_Resp/'+file_name+'.png',format='png')
+                    if not os.path.exists('2/2_emg'):
+                        os.makedirs('2/2_emg')
+                    plt.savefig('2/2_emg/'+file_name+'.png',format='png')
                     plt.clf()
                     print("%d개 생성완료 " % a)
                     
     if file[0] == '3' :
                     
-                    if not os.path.exists('3/3_Resp'):
-                        os.makedirs('3/3_Resp')
-                    plt.savefig('3/3_Resp/'+file_name+'.png',format='png')
+                    if not os.path.exists('3/3_emg'):
+                        os.makedirs('3/3_emg')
+                    plt.savefig('3/3_emg/'+file_name+'.png',format='png')
                     plt.clf() 
                     print("%d개 생성완료 " % a)
                     
     if file[0] == '4' :
                     
-                    if not os.path.exists('4/4_Resp'):
-                        os.makedirs('4/4_Resp')
-                    plt.savefig('4/4_Resp/'+file_name+'.png',format='png')
+                    if not os.path.exists('4/4_emg'):
+                        os.makedirs('4/4_emg')
+                    plt.savefig('4/4_emg/'+file_name+'.png',format='png')
                     plt.clf() 
                     print("%d개 생성완료 " % a)
                     
     if file[0] == 'R' :
                    
-                    if not os.path.exists('R/R_Resp'):
-                        os.makedirs('R/R_Resp')
-                    plt.savefig('R/R_Resp/'+file_name+'.png',format='png')
+                    if not os.path.exists('R/R_emg'):
+                        os.makedirs('R/R_emg')
+                    plt.savefig('R/R_emg/'+file_name+'.png',format='png')
                     plt.clf()
                     print("%d개 생성완료 " % a)
 
@@ -776,8 +776,8 @@ def draw_fft(file,file_name,c,a):
                     plt.savefig('R/R_eeg_fft/'+file_name+'.png',format='png')
                     plt.clf()
                     print("%d개 생성완료 " % a)
-def draw_Resp_fft(file,file_name,c,a):
-    Resp=open_file5(file)
+def draw_emg_fft(file,file_name,c,a):
+    emg=open_file5(file)
     x=[]
     y=[]
     z=[]
@@ -787,7 +787,7 @@ def draw_Resp_fft(file,file_name,c,a):
     
     for i in range(0,30):
         x.append(i)
-        y.append(Resp[i])
+        y.append(emg[i])
         
        
     y_a=[float(num) for num in y]
@@ -803,49 +803,49 @@ def draw_Resp_fft(file,file_name,c,a):
 
     if file[0] == 'W' :
                     
-                    if not os.path.exists('W/W_Resp_fft'):
-                        os.makedirs('W/W_Resp_fft')
-                    plt.savefig('W/W_Resp_fft/'+file_name+'.png',format='png')
+                    if not os.path.exists('W/W_emg_fft'):
+                        os.makedirs('W/W_emg_fft')
+                    plt.savefig('W/W_emg_fft/'+file_name+'.png',format='png')
                     plt.clf()
                     print("%d개 생성완료 " % a)
                     
     if file[0] == '1' :
                     
-                    if not os.path.exists('1/1_Resp_fft'):
-                        os.makedirs('1/1_Resp_fft')
-                    plt.savefig('1/1_Resp_fft/'+file_name+'.png',format='png')
+                    if not os.path.exists('1/1_emg_fft'):
+                        os.makedirs('1/1_emg_fft')
+                    plt.savefig('1/1_emg_fft/'+file_name+'.png',format='png')
                     plt.clf()
                     print("%d개 생성완료 " % a)
                     
     if file[0] == '2' :
                    
-                    if not os.path.exists('2/2_Resp_fft'):
-                        os.makedirs('2/2_Resp_fft')
-                    plt.savefig('2/2_Resp_fft/'+file_name+'.png',format='png')
+                    if not os.path.exists('2/2_emg_fft'):
+                        os.makedirs('2/2_emg_fft')
+                    plt.savefig('2/2_emg_fft/'+file_name+'.png',format='png')
                     plt.clf()
                     print("%d개 생성완료 " % a)
                     
     if file[0] == '3' :
                     
-                    if not os.path.exists('3/3_Resp_fft'):
-                        os.makedirs('3/3_Resp_fft')
-                    plt.savefig('3/3_Resp_fft/'+file_name+'.png',format='png')
+                    if not os.path.exists('3/3_emg_fft'):
+                        os.makedirs('3/3_emg_fft')
+                    plt.savefig('3/3_emg_fft/'+file_name+'.png',format='png')
                     plt.clf() 
                     print("%d개 생성완료 " % a)
                     
     if file[0] == '4' :
                     
-                    if not os.path.exists('4/4_Resp_fft'):
-                        os.makedirs('4/4_Resp_fft')
-                    plt.savefig('4/4_Resp_fft/'+file_name+'.png',format='png')
+                    if not os.path.exists('4/4_emg_fft'):
+                        os.makedirs('4/4_emg_fft')
+                    plt.savefig('4/4_emg_fft/'+file_name+'.png',format='png')
                     plt.clf() 
                     print("%d개 생성완료 " % a)
                     
     if file[0] == 'R' :
                    
-                    if not os.path.exists('R/R_Resp_fft'):
-                        os.makedirs('R/R_Resp_fft')
-                    plt.savefig('R/R_Resp_fft/'+file_name+'.png',format='png')
+                    if not os.path.exists('R/R_emg_fft'):
+                        os.makedirs('R/R_emg_fft')
+                    plt.savefig('R/R_emg_fft/'+file_name+'.png',format='png')
                     plt.clf()
                     print("%d개 생성완료 " % a)
                     
@@ -951,9 +951,6 @@ def draw_data_fft(input_data,dir_name):
           if z == 2:
               if file_name[:3]==(input_data+'_'):
                    y.append(file_name)
-          if z == 3:
-              if file_name[:4] ==(input_data+'_') :
-                   y.append(file_name)
                    
      for i in range(0,a):
             count+=1
@@ -991,9 +988,6 @@ def draw_data_eog_fft(input_data,dir_name):
           if z == 2:
               if file_name[:3]==(input_data+'_'):
                    y.append(file_name)
-          if z == 3:
-              if file_name[:4] ==(input_data+'_') :
-                   y.append(file_name)
                
                
      for i in range(0,a):
@@ -1003,7 +997,7 @@ def draw_data_eog_fft(input_data,dir_name):
      return count 
 
  
-def draw_data_Resp_fft(input_data,dir_name):
+def draw_data_emg_fft(input_data,dir_name):
 
      x=[]
      y=[]
@@ -1032,14 +1026,11 @@ def draw_data_Resp_fft(input_data,dir_name):
           if z == 2:
               if file_name[:3]==(input_data+'_'):
                    y.append(file_name)
-          if z == 3:
-              if file_name[:4] ==(input_data+'_') :
-                   y.append(file_name)
                
                
      for i in range(0,a):
             count+=1
-            draw_Resp_fft(x[i],y[i],k,count)         
+            draw_emg_fft(x[i],y[i],k,count)         
                  
      return count 
 
@@ -1072,9 +1063,7 @@ def draw_data_time(input_data,dir_name):
           if z == 2:
               if file_name[:3]==(input_data+'_'):
                    y.append(file_name)
-          if z == 3:
-              if file_name[:4] ==(input_data+'_') :
-                   y.append(file_name)
+               
      for i in range(0,a):
           count+=1
           draw_time(x[i],y[i],thick,k,count)
@@ -1109,17 +1098,14 @@ def draw_data_eog(input_data,dir_name):
           if z == 2:
               if file_name[:3]==(input_data+'_'):
                    y.append(file_name)
-          if z == 3:
-              if file_name[:4] ==(input_data+'_') :
-                   y.append(file_name)
-                   
+               
      for i in range(0,a):
           count+=1
           draw_time_eog(x[i],y[i],thick,k,count)
                  
      return count
 
-def draw_data_Resp(input_data,dir_name):
+def draw_data_emg(input_data,dir_name):
 
      x=[]
      y=[]
@@ -1147,13 +1133,10 @@ def draw_data_Resp(input_data,dir_name):
           if z == 2:
               if file_name[:3]==(input_data+'_'):
                    y.append(file_name)
-          if z == 3:
-              if file_name[:4] ==(input_data+'_') :
-                   y.append(file_name)
                
      for i in range(0,a):
           count+=1
-          draw_time_Resp(x[i],y[i],thick,k,count)
+          draw_time_emg(x[i],y[i],thick,k,count)
                  
      return count
     
